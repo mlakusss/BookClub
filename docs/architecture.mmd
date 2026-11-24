@@ -1,0 +1,8 @@
+flowchart LR
+  U[Пользователь] --> UI[Web UI: HTML CSS JS]
+  UI --> API[FastAPI REST API]
+  API --> S[Сервисный слой]
+  S --> ORM[SQLAlchemy ORM]
+  ORM --> DB[(PostgreSQL 16)]
+  API --> V[Pydantic: валидация]
+  S --> E[Пользовательские исключения]

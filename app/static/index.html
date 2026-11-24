@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BookClub — учет книг</title><link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header><div><span class="brand">BOOKCLUB</span><h1>Библиотека клуба</h1><p>Учет книг и читательского прогресса</p></div><button id="refresh" class="ghost">↻ Обновить</button></header>
+<main>
+<section class="stats">
+ <article><span>Всего книг</span><strong id="total">0</strong></article>
+ <article><span>Прочитано</span><strong id="read">0</strong></article>
+ <article><span>Читают сейчас</span><strong id="reading">0</strong></article>
+ <article><span>В планах</span><strong id="planned">0</strong></article>
+ <article><span>Средняя оценка</span><strong id="rating">—</strong></article>
+</section>
+<div class="layout">
+<section class="panel">
+ <div class="section-title"><div><h2 id="formTitle">Добавить книгу</h2><p>Заполните карточку книги</p></div></div>
+ <form id="bookForm">
+  <input type="hidden" id="bookId">
+  <label>Название книги<input id="title" maxlength="200" required placeholder="Например, Мастер и Маргарита"></label>
+  <label>Автор<input id="author" maxlength="160" required placeholder="М. А. Булгаков"></label>
+  <div class="two">
+   <label>Жанр<input id="genre" maxlength="80" placeholder="Роман"></label>
+   <label>Статус<select id="status"><option>В планах</option><option>Читаю</option><option>Прочитана</option></select></label>
+  </div>
+  <div class="two">
+   <label>Дата добавления<input id="added_on" type="date" required></label>
+   <label>Оценка (1–5)<select id="rating"><option value="">Без оценки</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
+  </div>
+  <label>Заметки<textarea id="notes" rows="3" maxlength="3000" placeholder="Впечатления, обсуждение клуба..."></textarea></label>
+  <div class="actions"><button type="submit" id="submitBtn">Сохранить книгу</button><button type="button" id="cancel" class="ghost hidden">Отмена</button></div>
+ </form>
+</section>
+<section class="panel library">
+ <div class="section-title"><div><h2>Каталог книг</h2><p>Поиск, фильтрация и управление записями</p></div><span id="count" class="pill">0 записей</span></div>
+ <div class="filters"><input id="search" placeholder="Поиск по названию или автору"><select id="filterStatus"><option value="">Все статусы</option><option>В планах</option><option>Читаю</option><option>Прочитана</option></select></div>
+ <div class="table-wrap"><table><thead><tr><th>Книга</th><th>Жанр</th><th>Статус</th><th>Оценка</th><th>Действия</th></tr></thead><tbody id="bookRows"></tbody></table></div>
+ <div class="empty hidden" id="empty">Книги не найдены. Добавьте первую запись.</div>
+</section>
+</div>
+<section class="panel activity"><div class="section-title"><div><h2>Активность клуба</h2><p>Распределение книг по статусам</p></div></div><div id="bars" class="bars"></div></section>
+<section class="panel"><div class="section-title"><div><h2>Журнал событий</h2><p>Последние действия в текущем сеансе</p></div><button id="clearLog" class="ghost">Очистить</button></div><ul id="log" class="log"><li>Приложение готово к работе</li></ul></section>
+</main><footer>BookClub · Лабораторная работа №3 · Вариант 6</footer>
+<script src="/static/app.js"></script>
+</body></html>

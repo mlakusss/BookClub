@@ -1,0 +1,49 @@
+@startuml
+skinparam classAttributeIconSize 0
+class Book {
+  +id: int
+  +title: str
+  +author: str
+  +genre: str
+  +status: str
+  +added_on: date
+  +rating: int?
+  +notes: str
+}
+class BookCreate {
+  +title: str
+  +author: str
+  +genre: str
+  +status: str
+  +added_on: date
+  +rating: int?
+  +notes: str
+  +strip_required()
+  +valid_status()
+}
+class BookClubError
+class BookNotFoundError
+class BookValidationError
+class BookService {
+  +create_book(db, data): Book
+  +list_books(db, search, status, genre): list[Book]
+  +get_book(db, id): Book
+  +update_book(db, id, data): Book
+  +delete_book(db, id): None
+  +get_statistics(db): dict
+}
+class FastAPIApp {
+  +GET /api/books
+  +POST /api/books
+  +PUT /api/books/{id}
+  +DELETE /api/books/{id}
+  +GET /api/statistics
+}
+BookCreate ..> Book : validation
+BookService ..> Book : CRUD
+BookService ..> BookNotFoundError
+BookService ..> BookValidationError
+BookNotFoundError --|> BookClubError
+BookValidationError --|> BookClubError
+FastAPIApp ..> BookService : calls
+@enduml

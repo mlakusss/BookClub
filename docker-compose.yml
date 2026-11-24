@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: bookclub_db
+    environment:
+      POSTGRES_DB: bookclub
+      POSTGRES_USER: bookclub
+      POSTGRES_PASSWORD: bookclub_secret
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bookclub -d bookclub"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+  web:
+    build: .
+    container_name: bookclub_web
+    environment:
+      DATABASE_URL: postgresql+psycopg://bookclub:bookclub_secret@db:5432/bookclub
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+volumes:
+  postgres_data:
